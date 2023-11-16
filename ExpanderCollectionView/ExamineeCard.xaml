@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:ExpanderCollectionView.Models"
+             x:Name="this"
+             x:Class="ExpanderCollectionView.ExamineeCard"
+             x:DataType="models:ExamineeModel">
+
+    <Border Background="{AppThemeBinding Light={StaticResource Primary},
+                                         Dark={StaticResource PrimaryDark}}"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 12,12,12,12"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Padding="12">
+
+        <toolkit:Expander x:Name="MyExpander">
+            <toolkit:Expander.Header>
+                <Grid ColumnDefinitions="Auto, *, Auto, Auto"
+                      HeightRequest="70">
+
+                    <toolkit:AvatarView Grid.Column="0"
+                                        Background="Transparent"
+                                        BorderColor="{AppThemeBinding Light={StaticResource Black},
+                                                                      Dark={StaticResource White}}"
+                                        BorderWidth="1"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        ImageSource="{FontImageSource FontFamily=MaterialRegular,
+                                                                      Glyph={x:Static m:MaterialRegular.Person}}" />
+
+                    <VerticalStackLayout Grid.Column="1"
+                                         HorizontalOptions="Start"
+                                         VerticalOptions="Center"
+                                         Margin="10,0,0,0">
+
+                        <Label Text="{Binding Username}"
+                               FontSize="16" />
+
+                        <Label Text="{Binding Name}"
+                               FontSize="13" />
+                    </VerticalStackLayout>
+
+                    <Image Grid.Column="3"
+                           HorizontalOptions="End"
+                           VerticalOptions="Start"
+                           Source="{FontImageSource FontFamily=MaterialRegular,
+                                                    Glyph={x:Static m:MaterialRegular.Expand_more},
+                                                    Color={AppThemeBinding Light={StaticResource Black},
+                                                                           Dark={StaticResource White}}}"
+                           HeightRequest="25"
+                           WidthRequest="25">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding Source={x:Reference MyExpander}, Path=IsExpanded}"
+                                         Value="True">
+                                <Setter Property="Rotation" Value="180" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding Source={x:Reference MyExpander}, Path=IsExpanded}"
+                                         Value="False">
+                                <Setter Property="Rotation" Value="0" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </toolkit:Expander.Header>
+
+            <toolkit:Expander.Content>
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
+                      RowSpacing="10">
+                    <VerticalStackLayout Grid.Row="0">
+                        <Label Text="Full Name"
+                               FontSize="16"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Name}"
+                               FontSize="13" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1">
+                        <Label Text="Username"
+                               FontSize="16"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Username}"
+                               FontSize="13" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="2">
+                        <Label Text="Group"
+                               FontSize="16"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding GroupName}"
+                               FontSize="13" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="3">
+                        <Label Text="Progress"
+                               FontSize="16"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Progress}"
+                               FontSize="13" />
+
+                    </VerticalStackLayout>
+
+                    <Button Grid.Row="4"
+                            Text="Grade Student"
+                            Background="{StaticResource Secondary}"
+                            ImageSource="{FontImageSource FontFamily=MaterialRegular,
+                                                          Glyph={x:Static m:MaterialRegular.Grading},
+                                                          Color={StaticResource Black}}"
+                            HeightRequest="50"
+                            CornerRadius="12"
+                            HorizontalOptions="Fill" />
+                </Grid>
+            </toolkit:Expander.Content>
+        </toolkit:Expander>
+    </Border>
+</ContentView>

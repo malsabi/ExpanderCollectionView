@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ExpanderCollectionView.Models"
+             xmlns:viewModels="clr-namespace:ExpanderCollectionView.ViewModels"
+             xmlns:local="clr-namespace:ExpanderCollectionView"
+             x:Class="ExpanderCollectionView.MainPage"
+             x:DataType="viewModels:MainViewModel">
+
+    <CollectionView SelectionMode="None"
+                    CanReorderItems="False"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding Examinees}">
+
+        <CollectionView.ItemsLayout>
+            <OnIdiom x:TypeArguments="ItemsLayout">
+                <!--  Grid view for Desktop  -->
+                <OnIdiom.Desktop>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="4"
+                                     HorizontalItemSpacing="5"
+                                     VerticalItemSpacing="5" />
+                </OnIdiom.Desktop>
+
+                <!--  Vertical column view for Phone  -->
+                <OnIdiom.Phone>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="10" />
+                </OnIdiom.Phone>
+            </OnIdiom>
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:ExamineeModel">
+                <local:ExamineeCard />
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>
